@@ -30,3 +30,25 @@ for word in all_words:
 More info: [Python Regular Expressions Complete Tutorial](https://www.guru99.com/python-regular-expressions-complete-tutorial.html)
 
 *Tags: regular expression, string*
+
+## Wednesday 6 Nov 2019
+**Problem: attempt to convert string to int or at least float**
+
+Suggested Solution:
+```python
+def int_else_float(rep_string):
+    try:
+        rep_float = float(rep_string)
+        rep_int = int(rep_float)
+        return rep_int if rep_int == rep_float else rep_float
+    except ValueError:
+        u_minus = u'\u2212'
+        if u_minus in rep_string:
+            # replace unicode minus
+            return int_else_float(rep_string.replace(u'\u2212', '-'))
+        else:
+            return rep_string
+```
+I forget where I found this, maybe SO...
+
+*Tags: int, float, string*
