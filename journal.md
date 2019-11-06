@@ -48,6 +48,23 @@ def int_else_float(rep_string):
             return int_else_float(rep_string.replace(u'\u2212', '-'))
         else:
             return rep_string
+            
+vals = [
+    '234no',
+    '87.023',
+    '1.2987e-7',
+    u'1.2987e\u22127',
+    '666',
+]
+for val in vals:
+    res = int_else_float(val)
+    print(f'{type(res)}: {val}')
+    
+# <class 'str'>: 234no, 234no
+# <class 'float'>: 87.023, 87.023
+# <class 'float'>: 1.2987e-7, 1.2987e-07
+# <class 'float'>: 1.2987e−7, 1.2987e-07
+# <class 'int'>: 666, 666 
 ```
 I forget where I found this, maybe SO...
 
