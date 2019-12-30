@@ -1,3 +1,22 @@
+## Monday 30 Dec 2019
+**Problem: call `__init__` methods of multiple super classes with different arguments**
+
+It creates a problem when a child class inherits from multiple parent classes that have different argument expectations.  This problem arose from a method inheriting from both `QThread` and another class I had defined.
+
+Suggested Solution:
+```python
+# class GuiConverter(QThread, Converter):  # fail
+class GuiConverter(Converter, QThread):
+    def __init___(self, arg1, arg2, arg3):
+        # super.__init__(arg1, arg2, arg3)  # fail
+        Converter.__init__(self, arg1, arg2, arg3)  # requires extra args
+        QThread.__init__(self)  # requires no extra args
+```
+
+More info: [SO q1](https://stackoverflow.com/questions/34884567/python-multiple-inheritance-passing-arguments-to-constructors-using-super), [SO q2](https://stackoverflow.com/questions/9575409/calling-parent-class-init-with-multiple-inheritance-whats-the-right-way), [SO q3](https://stackoverflow.com/questions/3277367/how-does-pythons-super-work-with-multiple-inheritance)
+
+*Tags: multiple inheritance, object-oriented*
+
 ## Wednesday 6 Nov 2019
 **Problem: search strings using regular expressions**
 
