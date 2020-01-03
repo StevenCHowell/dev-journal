@@ -1,3 +1,18 @@
+## Friday 3 Jan 2020
+**Problem: using Flask, return JSON output together with a status code**
+
+You could return results and the status code as `(result, code)` tuple.  In previous versions of Flask (maybe 1.0 and earlier), the `result` had to be JSON, so many references use `jsonify(result)` to convert the result dictionary to JSON.As of v1.1, you can now simply return the `result` as a dictionary.
+
+Suggested Solution:
+```python
+@app.route('/path/<string:some_value>)
+def perform_task(some_value):
+    res = append_value_to_task(some_value)
+    return {'result': res}, 201
+```
+
+More info: [SO q1](https://stackoverflow.com/a/59580439/3585557)
+
 ## Monday 30 Dec 2019
 **Problem: call `__init__` methods of multiple super classes with different arguments**
 
