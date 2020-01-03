@@ -1,4 +1,59 @@
 ## Friday 3 Jan 2020
+**Problem: create and interact with a separate thread for performing long tasks without locking up the controller**
+
+Use the `threading` module.
+
+Suggested Solution:
+```python
+>>> import threading
+>>> import time
+
+>>> def loop_from_i_to_j(i, j):
+        for k in range(i, j):
+            time.sleep(.5)
+            print(f'~~{k}~~')
+
+>>> thread = threading.Thread(target=loop_from_i_to_j, args=(5, 10))
+>>> thread.start()
+>>> for letter in 'abcdefghijklmnopqrstuvwxyz':
+        time.sleep(.1)
+        print(letter)
+a
+b
+c
+d
+~~5~~
+e
+f
+g
+h
+i
+~~6~~
+j
+k
+l
+m
+n
+~~7~~
+o
+p
+q
+r
+s
+~~8~~
+t
+u
+v
+w
+x
+~~9~~
+y
+z
+```
+
+More info: [Python Programming WikiBook](https://en.wikibooks.org/wiki/Python_Programming/Threading)
+
+## Friday 3 Jan 2020
 **Problem: using Flask, return JSON output together with a status code**
 
 You could return results and the status code as `(result, code)` tuple.  In previous versions of Flask (maybe 1.0 and earlier), the `result` had to be JSON, so many references use `jsonify(result)` to convert the result dictionary to JSON.As of v1.1, you can now simply return the `result` as a dictionary.
