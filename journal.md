@@ -12,12 +12,12 @@ Suggested Solution:
         for k in range(i, j):
             time.sleep(.5)
             print(f'~~{k}~~')
-
+>>> def loop_over_alphabet():
+        for letter in 'abcdefghijklmnopqrstuvwxyz':
+                time.sleep(.1)
+                print(letter)
 >>> thread = threading.Thread(target=loop_from_i_to_j, args=(5, 10))
->>> thread.start()
->>> for letter in 'abcdefghijklmnopqrstuvwxyz':
-        time.sleep(.1)
-        print(letter)
+>>> thread.start(); loop_over_alphabet()
 a
 b
 c
