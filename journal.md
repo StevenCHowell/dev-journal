@@ -1,3 +1,84 @@
+## Tuesday 7 Jan 2020
+**Problem: print a directory tree with the number of lines of code in any text files**
+
+Suggested Solution:
+```python
+import pathlib
+import itertools
+
+space = '    '
+branch = '│   '
+tee = '├── '
+last = '└── '
+
+
+def tree(dir_path: pathlib.Path, level: int=-1, n_wspace: int=50,
+         limit_to_directories: bool=False, length_limit: int=1000):
+    """Given a directory Path object print a visual tree structure"""
+    dir_path = pathlib.Path(dir_path)  # accept string coerceable to Path
+    files = 0
+    directories = 0
+
+    def inner(dir_path: pathlib.Path, prefix: str = '', level=-1):
+        nonlocal files, directories
+        if not level:
+            return  # 0, stop iterating
+        contents = [path for path in dir_path.iterdir() if path.name != '.git']
+        pointers = [tee] * (len(contents) - 1) + [last]
+        for pointer, path in zip(pointers, contents):
+            if path.is_dir():
+                yield prefix + pointer + path.name
+                directories += 1
+                extension = branch if pointer == tee else space
+                yield from inner(path, prefix=prefix+extension, level=level-1)
+            elif not limit_to_directories:
+                info = prefix + pointer + path.name
+                try:
+                    with path.open('r') as f:
+                        n_lines = len(f.readlines())
+                    loc = f' LOC: {n_lines}'
+                    info += ' ' * (n_wspace - len(info)) + loc
+                except UnicodeDecodeError:
+                    pass
+                yield info
+                files += 1
+
+    print(dir_path.name)
+    iterator = inner(dir_path, level=level)
+    for line in itertools.islice(iterator, length_limit):
+        print(line)
+    if next(iterator, None):
+        print(f'... length_limit, {length_limit}, reached, counted:')
+    print(
+        f'\n{directories} directories' +
+        (f', {files} files' if files else '')
+    )
+```
+
+Example output:
+```
+LaTeX_template
+├── .gitignore       LOC: 276
+├── appendix_a.tex   LOC: 8
+├── clean.sh         LOC: 1
+├── demo.bib         LOC: 247
+├── demo.tex         LOC: 121
+├── fancyhdr.sty     LOC: 236
+├── figures
+│   ├── redtriangle.png
+│   └── yellowcircle.png
+├── front_matter.tex LOC: 121
+├── Makefile         LOC: 20
+├── README.md        LOC: 28
+└── section_1.tex    LOC: 34
+
+1 directories, 12 files
+```
+
+More info: [List directory tree structure in Python](https://stackoverflow.com/a/59109706/3585557), [Count lines of code in directory using Python](https://stackoverflow.com/questions/38543709/count-lines-of-code-in-directory-using-python)
+
+*Tags: LOC, tree, directory, code*
+
 ## Friday 3 Jan 2020
 **Problem: create and interact with a separate thread for performing long tasks without locking up the controller**
 
@@ -52,6 +133,8 @@ z
 ```
 
 More info: [Python Programming WikiBook](https://en.wikibooks.org/wiki/Python_Programming/Threading)
+
+*Tags: multithreading*
 
 ## Friday 3 Jan 2020
 **Problem: using Flask, return JSON output together with a status code**
