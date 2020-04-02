@@ -1,3 +1,91 @@
+## Thursday 2 April 2020
+**Problem: interrupt a `multiprocessing.Pool` and clean-up**
+
+I am creating a Flask application that responds to certain requests by starting a new thread to perform the work. This new thread then creates a multiprocessing.Pool of workers to process multiple unrelated inputs in parallel (the output of one process has no impact on other processes).  I was tring to terminate the threadusing using `pool.terminate()` and then `pool.close()` without success. 
+
+Suggest Solution:
+I endede up solving this by using a `multiprocessing.Manager().Event()` to signal if each task should keep going or terminate.
+
+Here is a minimal working example to demonstrate the issue.
+
+### Worker file
+```python
+# sub.py
+import logging
+import multiprocessing
+import psutil
+import threading
+import time
+
+LOGGER = logging.getLogger(__name__)
+N_CORES = psutil.cpu_count(logical=False)
+
+
+class WorkerClass():
+    def __init__(self, input_values):
+        self.input_values = input_values
+        self.thread = threading.Thread(target=self.run, args=())
+
+    def run(self):
+        LOGGER.debug(f'Starting pool of {N_CORES} processes')
+        manager = multiprocessing.Manager()
+        self.proceed = manager.Event()  # create an event flag
+        self.proceed.set()
+        with multiprocessing.Pool(processes=N_CORES) as pool:
+            jobs = {}
+            for i in self.input_values:
+                jobs[i] = pool.apply_async(self.worker, [i, self.proceed])
+
+            LOGGER.debug(f'{len(jobs)} workers started')
+
+            done = []
+            while len(done) < len(jobs):
+                for key in jobs:
+                    if key not in done:
+                        try:
+                            res = jobs[key].get(1)
+                            LOGGER.debug(f'{key} result: {res}')
+                            done.append(key)
+                        except multiprocessing.TimeoutError:
+                            LOGGER.debug(f'Job still running: {key}')
+            LOGGER.debug('Collected all worker jobs.')
+        LOGGER.debug('Multiprocessing pool closed.')
+
+    @staticmethod
+    def worker(i, proceed):
+        result = 0
+        while result < i**2 and proceed.is_set():  # check that the event is still set
+            time.sleep(2)  # some long process
+            result += i
+        LOGGER.info(f'{i} * {i} = {result}')
+        return result
+```
+
+```python
+# main.py
+import logging
+import time
+
+from sub import WorkerClass
+
+logging.basicConfig(level=logging.DEBUG)
+LOGGER = logging.getLogger()
+
+
+if __name__ == '__main__':
+    my_worker = WorkerClass(range(5))
+    LOGGER.debug('starting thread')
+    my_worker.thread.start()
+
+    # simulate the request to terminate the job
+    time.sleep(7)
+    my_worker.proceed.clear()  # clear the event flag
+ ```
+ 
+More info: [My question](https://stackoverflow.com/questions/60996940/how-do-i-cleanly-interrupt-and-terminate-a-multiprocessing-pool-of-jobs), [GeeksforGeeks article](https://geeksforgeeks.org/python-different-ways-to-kill-a-thread/)
+
+*Tags: parallel, threading, multiprocessing, API*
+
 ## Tuesday 7 Jan 2020
 **Problem: print a directory tree with the number of lines of code in any text files**
 
