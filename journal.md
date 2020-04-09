@@ -1,10 +1,45 @@
+## Thursday 9 April 2020
+** Problem: How do I run a PostgreSQL database without requiring `sudo`?**
+
+I want to run PostgreSQL for a local project with requiring `sudo`.
+
+Suggested Solution:
+
+```bash
+export PATH=/usr/lib/postgresql/9.5/bin/:"$PATH"  #9.5 should be the version installed
+
+export PGDATA="$PWD/pg_data"
+export PGHOST="$PGDATA/sockets"
+export PGDATABASE="postgres"
+export PGUSER="$USER"
+
+pg_ctl init
+
+mkdir -p "$PGDATA/sockets"
+echo "unix_socket_directories = 'sockets'" >> "$PGDATA/postgresql.conf"
+echo "listen_addresses = ''" >> "$PGDATA/postgresql.conf"
+
+pg_ctl -D pg_data -l pg.log estart
+createdb <postgres_db_name> 
+```
+
+Then when done, shutdown postgres using 
+
+```bash
+pg_ctl  stop
+```
+
+More info: [PostgreSQL without sudo](https://datagrok.org/unix/a_little_postgres/)
+
+*Tags: database, postgresql*
+
 ## Thursday 2 April 2020
-**Problem: interrupt a `multiprocessing.Pool` and clean-up**
+**Problem: How do I interrupt a `multiprocessing.Pool` and clean-up?**
 
 I am creating a Flask application that responds to certain requests by starting a new thread to perform the work. This new thread then creates a multiprocessing.Pool of workers to process multiple unrelated inputs in parallel (the output of one process has no impact on other processes).  I was tring to terminate the threadusing using `pool.terminate()` and then `pool.close()` without success. 
 
-Suggest Solution:
-I endede up solving this by using a `multiprocessing.Manager().Event()` to signal if each task should keep going or terminate.
+Suggested Solution:
+I ended up solving this by using a `multiprocessing.Manager().Event()` to signal if each task should keep going or terminate.
 
 Here is a minimal working example to demonstrate the issue.
 
