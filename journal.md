@@ -1,3 +1,46 @@
+## Friday 19 June 2020
+** Problem: How can I create a dictionary/json map of an HDF5 file?**
+
+I want to explore a completely unfamiliar HDF5 file and create a representation of its contents that can help in making use of the file.
+
+Suggested Solution:
+
+The following recursive function takes as input an HDF5 file pointer, or a HDF5 You can pass a file pointer to an HDF5 file the following recursive function to get a dictionary.
+
+```python
+def hdf_to_dict(group):
+    d_group = {}
+    for key, value in zip(group.keys(), group.values()):
+        if 'group' in str(type(value)):
+            d_group[key] = hdf_to_dict(value)
+        else:
+            d_group[key] = str(type(value)).split('.')[-2]
+    return d_group
+```
+
+Here is an example using the above function.
+
+```python
+import pathlib
+import json
+
+fname_h5 = pathlib.Path('some_file.hdf5')
+with f5py.File(fname_h5, 'r') as f_in:
+    with open(fname1.with_suffix('.json'), 'w') as f_out:
+        f_out.write(json.dumps(hdf_to_dict(f_in), indent=4))
+```
+
+As a note, you can simply print out all the element names using the following.
+
+```python
+with f5py.File(fname_h5, 'r') as f_in:
+    f_in.visit(lambda name: print(name))
+```
+
+More info: [h5py docs](http://docs.h5py.org/en/stable/quick.html), [Blog Post: How to use HDF5 files in Python](https://www.pythonforthelab.com/blog/how-to-use-hdf5-files-in-python/)
+
+*Tags: database, postgresql*
+
 ## Thursday 9 April 2020
 ** Problem: How do I run a PostgreSQL database without requiring `sudo`?**
 
