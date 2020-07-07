@@ -1,5 +1,6 @@
 ## Friday 19 June 2020
-** Problem: How can I create a dictionary/json map of an HDF5 file?**
+
+**Problem: How can I create a dictionary/json map of an HDF5 file?**
 
 I want to explore a completely unfamiliar HDF5 file and create a representation of its contents that can help in making use of the file.
 
@@ -42,7 +43,8 @@ More info: [h5py docs](http://docs.h5py.org/en/stable/quick.html), [Blog Post: H
 *Tags: hdf5, h5, json, data exploration*
 
 ## Thursday 9 April 2020
-** Problem: How do I run a PostgreSQL database without requiring `sudo`?**
+
+**Problem: How do I run a PostgreSQL database without requiring `sudo`?**
 
 I want to run PostgreSQL for a local project with requiring `sudo`.
 
@@ -77,6 +79,7 @@ More info: [PostgreSQL without sudo](https://datagrok.org/unix/a_little_postgres
 *Tags: database, postgresql*
 
 ## Thursday 2 April 2020
+
 **Problem: How do I interrupt a `multiprocessing.Pool` and clean-up?**
 
 I am creating a Flask application that responds to certain requests by starting a new thread to perform the work. This new thread then creates a multiprocessing.Pool of workers to process multiple unrelated inputs in parallel (the output of one process has no impact on other processes).  I was tring to terminate the threadusing using `pool.terminate()` and then `pool.close()` without success. 
@@ -165,6 +168,7 @@ More info: [My question](https://stackoverflow.com/questions/60996940/how-do-i-c
 *Tags: parallel, threading, multiprocessing, API*
 
 ## Tuesday 7 Jan 2020
+
 **Problem: print a directory tree with the number of lines of code in any text files**
 
 Suggested Solution:
@@ -246,6 +250,7 @@ More info: [List directory tree structure in Python](https://stackoverflow.com/a
 *Tags: LOC, tree, directory, code*
 
 ## Friday 3 Jan 2020
+
 **Problem: create and interact with a separate thread for performing long tasks without locking up the controller**
 
 Use the `threading` module.
@@ -303,6 +308,7 @@ More info: [Python Programming WikiBook](https://en.wikibooks.org/wiki/Python_Pr
 *Tags: multithreading*
 
 ## Friday 3 Jan 2020
+
 **Problem: using Flask, return JSON output together with a status code**
 
 You could return results and the status code as `(result, code)` tuple.  In previous versions of Flask (maybe 1.0 and earlier), the `result` had to be JSON, so many references use `jsonify(result)` to convert the result dictionary to JSON.As of v1.1, you can now simply return the `result` as a dictionary.
@@ -318,6 +324,7 @@ def perform_task(some_value):
 More info: [SO q1](https://stackoverflow.com/a/59580439/3585557)
 
 ## Monday 30 Dec 2019
+
 **Problem: call `__init__` methods of multiple super classes with different arguments**
 
 It creates a problem when a child class inherits from multiple parent classes that have different argument expectations.  This problem arose from a method inheriting from both `QThread` and another class I had defined.
@@ -337,6 +344,7 @@ More info: [SO q1](https://stackoverflow.com/questions/34884567/python-multiple-
 *Tags: multiple inheritance, object-oriented*
 
 ## Wednesday 6 Nov 2019
+
 **Problem: search strings using regular expressions**
 
 Suggested Solutions:
@@ -370,6 +378,7 @@ More info: [Python Regular Expressions Complete Tutorial](https://www.guru99.com
 *Tags: regular expression, string*
 
 ## Wednesday 6 Nov 2019
+
 **Problem: attempt to convert string to int or at least float**
 
 Suggested Solution:
