@@ -39,7 +39,7 @@ with f5py.File(fname_h5, 'r') as f_in:
 
 More info: [h5py docs](http://docs.h5py.org/en/stable/quick.html), [Blog Post: How to use HDF5 files in Python](https://www.pythonforthelab.com/blog/how-to-use-hdf5-files-in-python/)
 
-*Tags: database, postgresql*
+*Tags: hdf5, h5, json, data exploration*
 
 ## Thursday 9 April 2020
 ** Problem: How do I run a PostgreSQL database without requiring `sudo`?**
