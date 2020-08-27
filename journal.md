@@ -2,7 +2,7 @@
 
 **Problem: How can I pass inputs into the [callback function for a Bokeh widget](https://docs.bokeh.org/en/latest/docs/user_guide/interaction/widgets.html#callbacks)?**
 
-The Bokeh widgets are designed to take only specific inputs.  Widgets `.on_change` method require the function signature `(attr, old, new)`.  Similarly, widgets `.on_click` method require the function signature `(new)`.  I want to create widgets groups that interact with each other and as much as possible want to relying on a host of global variables so I need to modify the input signature to accept additional inputs.
+The Bokeh widgets are designed to take only specific inputs.  Widgets `.on_change` method require the function signature `(attr, old, new)`.  Similarly, widgets `.on_click` method require the function signature `(new)`.  I want to create widgets groups that interact with each other. To avoid using on a host of global variables I need to modify the input signature of the callbacks to accept additional inputs.
 
 Suggested Solution:
 
