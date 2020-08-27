@@ -1,3 +1,70 @@
+## Thursday 27 August 2020
+
+**Problem: How can I pass inputs into the [callback function for a Bokeh widget](https://docs.bokeh.org/en/latest/docs/user_guide/interaction/widgets.html#callbacks)?**
+
+The Bokeh widgets are designed to take only specific inputs.  Widgets `.on_change` method require the function signature `(attr, old, new)`.  Similarly, widgets `.on_click` method require the function signature `(new)`.  I want to create widgets groups that interact with each other and as much as possible want to relying on a host of global variables so I need to modify the input signature to accept additional inputs.
+
+Suggested Solution:
+
+Wrap the functions in `functools.partial` to provide the additional inputs.  Here is an example Bokeh app that create a button group using a class that contains the callback methods and does not require global variables.
+
+```python
+from functools import partial
+from bokeh import models, plotting
+from bokeh.layouts import row, column
+
+
+class OptionFilter():
+    def __init__(self, options):
+        button_select = models.Button(label='Select All', width=100,
+                                      button_type='primary')
+        button_clear = models.Button(label='Clear All', width=100, height=30,
+                                     button_type='primary')
+        cb_group = models.CheckboxGroup(labels=options,
+                                        active=list(range(len(options))))
+        info = models.Paragraph(text="""Push the button.""",
+                                width=200, height=100)
+
+        button_select.on_click(partial(self.select_all, cb_group, info))
+        button_clear.on_click(partial(self.clear_all, cb_group, info))
+        cb_group.on_change('active', partial(self.cb_changed,
+                                             cb_group=cb_group, info=info))
+
+        self.layout = column(row(button_select, button_clear),
+                             cb_group, info)
+
+    @staticmethod
+    def select_all(cb_group, info):
+        info.text = 'Selecting all.'
+        n = len(cb_group.labels)
+        cb_group.active = list(range(n))
+
+    @staticmethod
+    def clear_all(cb_group, info):
+        info.text = 'Clearing all.'
+        cb_group.active = []
+
+    @staticmethod
+    def cb_changed(attr, old, new, cb_group=None, info=None):
+        if info is not None and cb_group is not None:
+            info.text = f'Active: {cb_group.active}'
+
+
+options1 = ['A', 'B', 'C', 'D']
+group1 = OptionFilter(options1)
+
+options2 = [str(i) for i in range(5)]
+group2 = OptionFilter(options2)
+
+layout = row(group1.layout, group2.layout)
+plotting.curdoc().add_root(layout)
+plotting.curdoc().title = 'Testing'
+```
+
+More info: [Python Bokeh send additional parameters to widget event handler](https://stackoverflow.com/q/41926478/3585557)
+
+*Tags: bokeh, dashboard, class*
+
 ## Friday 19 June 2020
 
 **Problem: How can I create a dictionary/json map of an HDF5 file?**
