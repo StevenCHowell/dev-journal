@@ -1,3 +1,27 @@
+## Monday 26 October 2020
+
+**Problem: How do I make a `venv` Virtual Environment visible to Jupyter installed in another environment?
+
+In addition to installing the `ipykernel` module (common to conda environments),
+
+    pip install ipykernel
+    
+the environment path must be added to the appropriate config file using,
+
+    python -m ipykernel install --user --name=<helpful-kernel-name>
+    
+This should print something like the following:
+
+    Installed kernelspec tabular_env in C:\Users\user\AppData\Roaming\jupyter\kernels\tabular_env
+    
+or 
+
+    Installed kernelspec myenv in /home/user/.local/share/jupyter/kernels/myenv
+
+More info: [Using Virtual Environments in Jupyter Notebook and Python](https://janakiev.com/blog/jupyter-virtual-envs/)
+
+*Tags: jupyter, virtual environments, envs, venv*
+
 ## Thursday 27 August 2020
 
 **Problem: How can I pass inputs into the [callback function for a Bokeh widget](https://docs.bokeh.org/en/latest/docs/user_guide/interaction/widgets.html#callbacks)?**
