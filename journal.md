@@ -1,6 +1,32 @@
+## Monday 25 January 2020
+
+**Problem: How do I remove duplicate columns from a pandas DataFrame?**
+
+In working with a data file I indentified several columns had identical information. Sometimes the columns had similar names, `heading` and `heading:1`, but not always.
+
+Suggested Solution:
+
+```python
+def find_duplicate_cols(data):
+    duplicate_columns = set()
+    columns = list(data.columns)
+    n = len(columns)
+    for i, col in enumerate(columns):
+        col_i = data[col]
+        for j in range(i+1, n):
+            col_j = data[columns[j]]
+            if col_i.equals(col_j):
+                duplicate_columns.add(columns[j])
+    return list(duplicate_columns)
+```
+
+More info: My solution is a modified version of code from [thispointer.com article](https://thispointer.com/how-to-find-drop-duplicate-columns-in-a-dataframe-python-pandas/#:~:text=To%20find%20these%20duplicate%20columns,stored%20in%20duplicate%20column%20list.)
+
+*Tags: pandas, duplicate, columns*
+
 ## Monday 26 October 2020
 
-**Problem: How do I make a `venv` Virtual Environment visible to Jupyter installed in another environment?
+**Problem: How do I make a `venv` Virtual Environment visible to Jupyter installed in another environment?**
 
 In addition to installing the `ipykernel` module (common to conda environments),
 
