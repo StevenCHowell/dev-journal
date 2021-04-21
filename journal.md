@@ -1,4 +1,24 @@
-## Monday 25 January 2020
+## Wednesday 21 April 2021
+
+How do I convert an 3-channel RGB image to a 1-channel B&W image?
+
+Suggested Solution:
+
+```python
+def color_to_bw(data_c, rec='709-6'):
+    weights = {
+        '709-6': np.array([0.2125, 0.7174, 0.0721]),  # Rec. 709-6 luminance weights
+        '609-7': np.array([0.299, 0.587, 0.114]),  # Rec. 609-7 luminance weights
+    }
+    data_bw = np.dot(data_c, weights[rec])
+    return np.expand_dims(data_bw, -1)
+```
+
+More info: My solution is a functionalized version of Example 3 from [this Holy Python post](https://holypython.com/python-pil-tutorial/how-to-convert-an-image-to-black-white-in-python-pil/#:~:text=Color()%20method%20to%20get,turn%20in%20a%20grayscale%20image.).
+
+*Tags: image, color, b&w
+
+## Monday 25 January 2021
 
 **Problem: How do I remove duplicate columns from a pandas DataFrame?**
 
