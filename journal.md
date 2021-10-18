@@ -4,7 +4,7 @@ How do I create a MS COCO dataset from a selection of images from Google Open Im
 
 Suggested Solution:
 
-The FiftyOne application, from VOXEL51, provides a simple SDK for interfacing with various datasets and data formats.  FiftyOne can easily be used to download a selection of data from the Google Open Images Dataset then stored in MS COCO format as outlined below.
+The [FiftyOne application](https://voxel51.com/fiftyone/), from [VOXEL51](https://voxel51.com/), provides a simple SDK for interfacing with various datasets and data formats.  FiftyOne can easily be used to download a selection of data from the Google Open Images Dataset then stored in MS COCO format as outlined below.
 
 ```python
 import pathlib
@@ -29,7 +29,7 @@ dataset.export(
 )    
 ```
 
-More info: This solution combines information from the [FiftyOne Integration guide for Open Images Integration](https://voxel51.com/docs/fiftyone/integrations/open_images.html) and a soction of the [FiftyOne User Guide on Exporting FiftyOne Datasets](https://voxel51.com/docs/fiftyone/user_guide/export_datasets.html#cocodetectiondataset).  Huge thanks to [Eric Hofesmann](https://twitter.com/ehofesmann) for helping me connect the dots.
+More info: This solution combines information from the [FiftyOne Integration guide for Open Images Integration](https://voxel51.com/docs/fiftyone/integrations/open_images.html) and a section of the [FiftyOne User Guide on Exporting FiftyOne Datasets](https://voxel51.com/docs/fiftyone/user_guide/export_datasets.html#cocodetectiondataset).  Huge thanks to [Eric Hofesmann](https://twitter.com/ehofesmann) for helping me connect the dots.
 
 *Tags: object-detection, COCO, OID, FiftyOne, image
 
