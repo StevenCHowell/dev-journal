@@ -4,8 +4,7 @@ How do I create a MS COCO dataset from a selection of images from Google Open Im
 
 Suggested Solution:
 
-The FiftyOne application, from VOXEL51, provides a simple SDK for interfacing with various datasets and data formats.  
-FiftyOne can easily be used to download a selection of data from the Google Open Images Dataset then stored in MS COCO format as outlined below.
+The FiftyOne application, from VOXEL51, provides a simple SDK for interfacing with various datasets and data formats.  FiftyOne can easily be used to download a selection of data from the Google Open Images Dataset then stored in MS COCO format as outlined below.
 
 ```python
 import pathlib
