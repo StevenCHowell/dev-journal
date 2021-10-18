@@ -1,3 +1,39 @@
+## Monday 18 October 2021
+
+How do I create a MS COCO dataset from a selection of images from Google Open Images Dataset?
+
+Suggested Solution:
+
+The FiftyOne application, from VOXEL51, provides a simple SDK for interfacing with various datasets and data formats.  
+FiftyOne can easily be used to download a selection of data from the Google Open Images Dataset then stored in MS COCO format as outlined below.
+
+```python
+import pathlib
+import fiftyone as fo
+import fiftyone.zoo as foz
+
+# load in data from Google Open Images Dataset
+dataset = foz.load_zoo_dataset(
+    "open-images-v6",
+    split="train",
+    label_types=["segmentations"],
+    classes=["Handgun", "Dagger"],
+    max_samples=100,
+)
+
+# export the data in COCO MS format
+export_dir = 'coco_version/'
+dataset.export(
+    export_dir=export_dir,
+    dataset_type=fo.types.COCODetectionDataset,
+    label_field="segmentations"
+)    
+```
+
+More info: This solution combines information from the [FiftyOne Integration guide for Open Images Integration](https://voxel51.com/docs/fiftyone/integrations/open_images.html) and a soction of the [FiftyOne User Guide on Exporting FiftyOne Datasets](https://voxel51.com/docs/fiftyone/user_guide/export_datasets.html#cocodetectiondataset).  Huge thanks to [Eric Hofesmann](https://twitter.com/ehofesmann) for helping me connect the dots.
+
+*Tags: object-detection, COCO, OID, FiftyOne, image
+
 ## Wednesday 21 April 2021
 
 How do I convert an 3-channel RGB image to a 1-channel B&W image?
