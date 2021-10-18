@@ -11,12 +11,15 @@ import pathlib
 import fiftyone as fo
 import fiftyone.zoo as foz
 
+# select the classes of interest
+classes = ["Handgun", "Dagger"]
+
 # load in data from Google Open Images Dataset
 dataset = foz.load_zoo_dataset(
     "open-images-v6",
     split="train",
     label_types=["segmentations"],
-    classes=["Handgun", "Dagger"],
+    classes=classes,
     max_samples=100,
 )
 
@@ -25,7 +28,8 @@ export_dir = 'coco_version/'
 dataset.export(
     export_dir=export_dir,
     dataset_type=fo.types.COCODetectionDataset,
-    label_field="segmentations"
+    label_field="segmentations",
+    classes=classes,  # only output information about the classes of interest
 )    
 ```
 
