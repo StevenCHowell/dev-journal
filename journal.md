@@ -1,3 +1,52 @@
+## Wednesday 25 May 2022
+
+How do I setup pre-commit hooks to automate Python style rules?
+
+Suggested Solution:
+
+Install black, flake8, and isort `pip`:
+    
+    pip install black flake8 isort
+
+or using [Poetry](https://python-poetry.org/docs/master/managing-dependencies/#adding-a-dependency-to-a-group):
+
+    poetry add black flake8 isort --group dev
+
+In the repo root directory, create (or modify) the file `.pre-commit-config.yaml` with the following:
+
+```yaml
+repos:
+-   repo: https://github.com/psf/black
+    rev: 22.3.0
+    hooks:
+    - id: black
+-   repo: https://gitlab.com/pycqa/flake8
+    rev: 4.0.1
+    hooks:
+    - id: flake8
+-   repo: https://github.com/timothycrosley/isort
+    rev: 5.10.1
+    hooks:
+    -   id: isort
+```
+
+Add the following configurations to `tox.ini`:
+
+```ini
+[flake8]
+max-line-length = 88
+select = C,E,F,W,B,B950
+extend-ignore = E203, E501
+
+[isort]
+profile = black
+line_length = 88
+```
+
+More info: The [blog post]([https://voxel51.com/fiftyone/](https://towardsdatascience.com/4-pre-commit-plugins-to-automate-code-reviewing-and-formatting-in-python-c80c6d2e9f5)) provided much of the information for this solution.  The docstring hook did not apply for my use case but would be useful in many situations.
+
+*Tags: Git, code-style, PEP8, black, flake8, isort
+
 ## Monday 18 October 2021
 
 How do I create a MS COCO dataset from a selection of images from Google Open Images Dataset?
