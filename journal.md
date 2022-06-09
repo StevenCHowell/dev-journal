@@ -43,6 +43,12 @@ profile = black
 line_length = 88
 ```
 
+The last step is to install the pre-commit hooks by running:
+
+```bash
+pre-commit install
+```
+
 More info: [This blog post](https://towardsdatascience.com/4-pre-commit-plugins-to-automate-code-reviewing-and-formatting-in-python-c80c6d2e9f5) provided much of the information for this solution.  The docstring hook did not apply for my use case but would be useful in many situations.  [This second blog post](https://python.plainenglish.io/how-to-improve-your-python-code-style-with-pre-commit-hooks-e7fe3fd43bfa) had additional information about built-in pre-commit hooks ([full list here](https://pre-commit.com/hooks.html))
 
 *Tags: Git, code-style, PEP8, black, flake8, isort
