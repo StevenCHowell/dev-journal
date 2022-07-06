@@ -1,3 +1,38 @@
+## Wednesday 6 July 2022
+
+How do I convert a Python object that contains nested objects into a json serializable dictionary?
+
+Suggested Solution:
+
+Provide a function to for the `default` input of the `json.dumps()` or `json.dump()` methods.  This input value is [described as follows](https://docs.python.org/3/library/json.html#json.dump):
+    
+> If specified, default should be a function that gets called for objects that can’t otherwise be serialized. It should return a JSON encodable version of the object or raise a TypeError. If not specified, TypeError is raised.
+
+For class objects, a function that returns the `__dict__` attribute works nicely.  This requires that the nested class attributes be serializable themselves, which may not be the case for some custom data structures, e.g., NumPy arrays or Pandas DataFrames.
+
+Here is a function for converting a class object into a dictionary:
+
+```python
+import json
+
+def to_dict(obj):
+    return json.loads(json.dumps(obj, default=lambda o: o.__dict__))
+```
+
+Here is an example that directly saves a class object to a file:
+
+```python
+import json
+
+def to_json(obj, fname):
+    with open(fname, 'w') as f:
+        json.dump(obj, f, default=lambda o: o.__dict__)
+```
+
+More info: [StackOverflow post]([https://towardsdatascience.com/4-pre-commit-plugins-to-automate-code-reviewing-and-formatting-in-python-c80c6d2e9f5](https://stackoverflow.com/a/48413290/3585557)
+
+*Tags: Object-Oriented, class, dict, json
+
 ## Wednesday 25 May 2022
 
 How do I setup pre-commit hooks to automate Python style rules?
