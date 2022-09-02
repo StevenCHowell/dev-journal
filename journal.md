@@ -1,3 +1,32 @@
+## Friday 2 Septemebr 2022
+
+I am combining `.gitignore` files from two projects.  How do I deduplicate the resulting combined file?
+
+Suggested Solution:
+
+* Generate a new `.gitignore` file: https://www.toptal.com/developers/gitignore/
+* Combine the two, then use the following Python code to remove duplicates (not perfect)
+
+```python
+import pathlib
+fname_in = pathlib.Path('.gitignore')
+fname_out = pathlib.Path('.gitignore_dedup')
+
+lines_seen = set()  
+enter = '\n'
+with open(fname_out, 'w') as outfile:
+    for line in open(fname_in, 'r'):
+        if line[:1] == '#' or line == '\n':
+            outfile.write(line)
+        elif line not in lines_seen:
+            outfile.write(line)
+            lines_seen.add(line)
+```
+
+More info: [Stackoverflow post on removing duplicate lines from a text file](https://stackoverflow.com/a/1215244/3585557)
+
+*Tags: gitignore, deduplicate
+
 ## Wednesday 6 July 2022
 
 How do I convert a Python object that contains nested objects into a json serializable dictionary?
