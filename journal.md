@@ -10,6 +10,33 @@ More Info: [link]()
 
 *Tags: ...*
 
+## Wednesday 7 September 2022
+
+What is a simple way to convert a snake case string into camel case?
+
+Suggested Solution:
+
+As a one-liner:
+
+```python
+In [14]: snake_string = "steven_c_howell"
+    ...: camel_string = snake_string.title().replace("_", "")
+
+In [15]: print(camel_string)
+StevenCHowell
+```
+
+As a function:
+
+```python
+def snake2camel(snake_string):
+    return snake_string.title().replace("_", "")
+```
+
+More Info: [StackOverflow example](https://stackoverflow.com/a/34655712/3585557)
+
+*Tags: snake_case, CamelCase*
+
 ## Friday 2 Septemebr 2022
 
 I am combining `.gitignore` files from two projects.  How do I deduplicate the resulting combined file?
