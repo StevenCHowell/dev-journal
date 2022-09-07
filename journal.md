@@ -12,9 +12,14 @@ More Info: [link]()
 
 ## Wednesday 7 September 2022
 
-What is a simple way to convert a snake case string into camel case?
+What is a simple way to convert a...
+
+* snake case string into camel case?
+* camel case string into snake case?
 
 Suggested Solution:
+
+### Snake to Camel
 
 As a one-liner:
 
@@ -33,7 +38,21 @@ def snake2camel(snake_string):
     return snake_string.title().replace("_", "")
 ```
 
-More Info: [StackOverflow example](https://stackoverflow.com/a/34655712/3585557)
+### Camel to Snake
+
+Use regular expressions (for simple cases):
+
+```python
+In [16]: import re
+
+In [17]: camel_string = "StevenCHowell"
+    ...: snake_string = re.sub(r'(?<!^)(?=[A-Z])', '_', name).lower()
+
+In [18]: print(snake_string) 
+steven_c_howell
+```
+
+More Info: [StackOverflow Snake to Camel example](https://stackoverflow.com/a/34655712/3585557), [StackOverflow Camel to Snake example (includes code for more complicated cases, such as `"getHTTPResponseCode"`](https://stackoverflow.com/a/1176023/3585557)
 
 *Tags: snake_case, CamelCase*
 
