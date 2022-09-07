@@ -1,3 +1,15 @@
+## Day Date
+
+Question...
+
+Suggested Solution:
+
+...
+
+More Info: [link]()
+
+*Tags: ...*
+
 ## Friday 2 Septemebr 2022
 
 I am combining `.gitignore` files from two projects.  How do I deduplicate the resulting combined file?
@@ -25,7 +37,7 @@ with open(fname_out, 'w') as outfile:
 
 More info: [Stackoverflow post on removing duplicate lines from a text file](https://stackoverflow.com/a/1215244/3585557)
 
-*Tags: gitignore, deduplicate
+*Tags: gitignore, deduplicate*
 
 ## Wednesday 6 July 2022
 
@@ -60,7 +72,7 @@ def to_json(obj, fname):
 
 More info: [StackOverflow post]([https://towardsdatascience.com/4-pre-commit-plugins-to-automate-code-reviewing-and-formatting-in-python-c80c6d2e9f5](https://stackoverflow.com/a/48413290/3585557)
 
-*Tags: Object-Oriented, class, dict, json
+*Tags: Object-Oriented, class, dict, json*
 
 ## Wednesday 25 May 2022
 
@@ -115,7 +127,7 @@ pre-commit install
 
 More info: [This blog post](https://towardsdatascience.com/4-pre-commit-plugins-to-automate-code-reviewing-and-formatting-in-python-c80c6d2e9f5) provided much of the information for this solution.  The docstring hook did not apply for my use case but would be useful in many situations.  [This second blog post](https://python.plainenglish.io/how-to-improve-your-python-code-style-with-pre-commit-hooks-e7fe3fd43bfa) had additional information about built-in pre-commit hooks ([full list here](https://pre-commit.com/hooks.html))
 
-*Tags: Git, code-style, PEP8, black, flake8, isort
+*Tags: Git, code-style, PEP8, black, flake8, isort*
 
 ## Monday 18 October 2021
 
@@ -154,7 +166,7 @@ dataset.export(
 
 More info: This solution combines information from the [FiftyOne Integration guide for Open Images Integration](https://voxel51.com/docs/fiftyone/integrations/open_images.html) and a section of the [FiftyOne User Guide on Exporting FiftyOne Datasets](https://voxel51.com/docs/fiftyone/user_guide/export_datasets.html#cocodetectiondataset).  Huge thanks to [Eric Hofesmann](https://twitter.com/ehofesmann) for helping me connect the dots.
 
-*Tags: object-detection, COCO, OID, FiftyOne, image
+*Tags: object-detection, COCO, OID, FiftyOne, image*
 
 ## Wednesday 21 April 2021
 
@@ -174,7 +186,7 @@ def color_to_bw(data_c, rec='709-6'):
 
 More info: My solution is a functionalized version of Example 3 from [this Holy Python post](https://holypython.com/python-pil-tutorial/how-to-convert-an-image-to-black-white-in-python-pil/#:~:text=Color()%20method%20to%20get,turn%20in%20a%20grayscale%20image.).
 
-*Tags: image, color, b&w
+*Tags: image, color, b&w*
 
 ## Monday 25 January 2021
 
