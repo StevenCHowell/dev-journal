@@ -85,6 +85,81 @@ More info: [Stackoverflow post on removing duplicate lines from a text file](htt
 
 *Tags: gitignore, deduplicate*
 
+## Monday 8 August 2022
+
+Why do my Python logging messages do not print when the logging level is set to `info`?
+
+Suggested Solution:
+
+In more recent versions of Python 3 (tested with Python 3.8), console logging requires creating a console handler to correctly show info messages.
+
+The following example is modified from the [Configuring Logging example](https://docs.python.org/3.8/howto/logging.html#configuring-logging) in the Python documentation:
+
+```python
+import logging
+
+# create logger
+logger = logging.getLogger('__name__')
+level = logging.INFO
+logger.setLevel(level)
+
+# ----> console info messages require these lines <----
+# create console handler and set level to debug
+ch = logging.StreamHandler()
+ch.setLevel(level)
+
+# add ch to logger
+logger.addHandler(ch)
+# -----------------------------------------------------
+
+# 'application' code
+logger.debug('debug message')
+logger.info('info message')
+logger.warning('warn message')
+logger.error('error message')
+logger.critical('critical message')
+```
+Running the above code generates the following output:
+
+```bash
+info message
+warn message
+error message
+critical message
+```
+
+Here is the same code without the console handler:
+
+```python
+import logging
+
+# create logger
+logger = logging.getLogger('__name__')
+level = logging.INFO
+logger.setLevel(level)
+
+# 'application' code
+logger.debug('debug message')
+logger.info('info message')
+logger.warning('warn message')
+logger.error('error message')
+logger.critical('critical message')
+```
+
+Without the console handler, the output does not include the info message.
+
+```bash
+warn message
+error message
+critical message
+```
+
+I do not understand why it is necessary to include the console handler; it seems unnecessary.
+
+More Info: [Python Logging Documentation](https://docs.python.org/3.8/howto/logging.html#configuring-logging)
+
+*Tags: Logging*
+
 ## Wednesday 6 July 2022
 
 How do I convert a Python object that contains nested objects into a json serializable dictionary?
