@@ -10,6 +10,51 @@ More Info: [link]()
 
 *Tags: ...*
 
+## Monday 27 February 2023
+
+How do I launch a flatpak application from the command line?
+
+Suggested Solution:
+
+Use this `fuzzpak` script:
+
+```bash
+#!/usr/bin/env bash
+#GPLv3
+
+DIR=${DIR:-$HOME/.var/app}
+CMD=${CMD:-flatpak run}
+
+launch_app() {
+    find "${DIR}" -mindepth 1 -maxdepth 1 \
+     -type d -iname "*$1*" -printf '%f\n' \
+    | xargs $CMD
+}
+
+# parse opts
+while [ True ]; do
+if [ "$1" = "--help" -o "$1" = "-h" ]; then
+    echo " "
+    echo "$0 [OPTIONS]"
+    echo "--directory, -d   Location of flatpaks (default: $HOME/.var/app"
+    echo " "
+    exit
+elif [ "$1" = "--directory" -o "$1" = "-d" ]; then
+    DIR=$DIR
+    shift 2
+else
+    break
+fi
+done
+
+# main
+launch_app "${1}"
+```
+
+More Info: [Seth Kenlon's blog post](https://www.redhat.com/sysadmin/launch-flatpaks-terminal-fuzzpak), see also [Seth's `pakrat` script for creating flatpak aliases](https://gitlab.com/slackermedia/pakrat) 
+
+*Tags: CLI, flatpak*
+
 ## Wednesday 7 September 2022
 
 What is a simple way to convert a...
