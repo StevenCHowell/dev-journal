@@ -10,6 +10,26 @@ More Info: [link]()
 
 *Tags: ...*
 
+## Wednesday 19 April 2023
+
+How do I create optional arguments using Python's built-in `argparse` library?
+
+Suggested Solution:
+
+```python
+parser.add_argument(
+    "-o",
+    "--optional",
+    default="default_value",
+    type=str,
+    help="Change the value of optional.",
+)
+```
+
+More Info: [Meduim post with lots of examples](https://medium.com/swlh/python-argparse-by-example-a530eb55ced9)
+
+*Tags: #argparse, #optional, #argument
+
 ## Monday 27 February 2023
 
 How do I launch a flatpak application from the command line?
@@ -53,7 +73,7 @@ launch_app "${1}"
 
 More Info: [Seth Kenlon's blog post](https://www.redhat.com/sysadmin/launch-flatpaks-terminal-fuzzpak), see also [Seth's `pakrat` script for creating flatpak aliases](https://gitlab.com/slackermedia/pakrat) 
 
-*Tags: CLI, flatpak*
+*Tags: #CLI, #flatpak*
 
 ## Wednesday 7 September 2022
 
@@ -99,7 +119,7 @@ steven_c_howell
 
 More Info: [StackOverflow Snake to Camel example](https://stackoverflow.com/a/34655712/3585557), [StackOverflow Camel to Snake example (includes code for more complicated cases, such as `"getHTTPResponseCode"`](https://stackoverflow.com/a/1176023/3585557)
 
-*Tags: snake_case, CamelCase*
+*Tags: #snake_case, #CamelCase*
 
 ## Friday 2 Septemebr 2022
 
@@ -128,7 +148,7 @@ with open(fname_out, 'w') as outfile:
 
 More info: [Stackoverflow post on removing duplicate lines from a text file](https://stackoverflow.com/a/1215244/3585557)
 
-*Tags: gitignore, deduplicate*
+*Tags: #gitignore, #deduplicate*
 
 ## Monday 8 August 2022
 
@@ -203,7 +223,7 @@ I do not understand why it is necessary to include the console handler; it seems
 
 More Info: [Python Logging Documentation](https://docs.python.org/3.8/howto/logging.html#configuring-logging)
 
-*Tags: Logging*
+*Tags: #Logging*
 
 ## Wednesday 6 July 2022
 
@@ -238,7 +258,7 @@ def to_json(obj, fname):
 
 More info: [StackOverflow post]([https://towardsdatascience.com/4-pre-commit-plugins-to-automate-code-reviewing-and-formatting-in-python-c80c6d2e9f5](https://stackoverflow.com/a/48413290/3585557)
 
-*Tags: Object-Oriented, class, dict, json*
+*Tags: #Object-Oriented, #class, #dict, #json*
 
 ## Wednesday 25 May 2022
 
@@ -293,7 +313,7 @@ pre-commit install
 
 More info: [This blog post](https://towardsdatascience.com/4-pre-commit-plugins-to-automate-code-reviewing-and-formatting-in-python-c80c6d2e9f5) provided much of the information for this solution.  The docstring hook did not apply for my use case but would be useful in many situations.  [This second blog post](https://python.plainenglish.io/how-to-improve-your-python-code-style-with-pre-commit-hooks-e7fe3fd43bfa) had additional information about built-in pre-commit hooks ([full list here](https://pre-commit.com/hooks.html))
 
-*Tags: Git, code-style, PEP8, black, flake8, isort*
+*Tags: #Git, #code-style, #PEP8, #black, #flake8, #isort*
 
 ## Monday 18 October 2021
 
@@ -332,7 +352,7 @@ dataset.export(
 
 More info: This solution combines information from the [FiftyOne Integration guide for Open Images Integration](https://voxel51.com/docs/fiftyone/integrations/open_images.html) and a section of the [FiftyOne User Guide on Exporting FiftyOne Datasets](https://voxel51.com/docs/fiftyone/user_guide/export_datasets.html#cocodetectiondataset).  Huge thanks to [Eric Hofesmann](https://twitter.com/ehofesmann) for helping me connect the dots.
 
-*Tags: object-detection, COCO, OID, FiftyOne, image*
+*Tags: #object-detection, #COCO, #OID, #FiftyOne, #image*
 
 ## Wednesday 21 April 2021
 
@@ -352,7 +372,7 @@ def color_to_bw(data_c, rec='709-6'):
 
 More info: My solution is a functionalized version of Example 3 from [this Holy Python post](https://holypython.com/python-pil-tutorial/how-to-convert-an-image-to-black-white-in-python-pil/#:~:text=Color()%20method%20to%20get,turn%20in%20a%20grayscale%20image.).
 
-*Tags: image, color, b&w*
+*Tags: #image, #color, #b&w*
 
 ## Monday 25 January 2021
 
@@ -378,7 +398,7 @@ def find_duplicate_cols(data):
 
 More info: My solution is a modified version of code from [thispointer.com article](https://thispointer.com/how-to-find-drop-duplicate-columns-in-a-dataframe-python-pandas/#:~:text=To%20find%20these%20duplicate%20columns,stored%20in%20duplicate%20column%20list.)
 
-*Tags: pandas, duplicate, columns*
+*Tags: #pandas, #duplicate, #columns*
 
 ## Monday 26 October 2020
 
@@ -402,7 +422,7 @@ or
 
 More info: [Using Virtual Environments in Jupyter Notebook and Python](https://janakiev.com/blog/jupyter-virtual-envs/)
 
-*Tags: jupyter, virtual environments, envs, venv*
+*Tags: #jupyter, #virtual-environments, #envs, #venv*
 
 ## Thursday 27 August 2020
 
@@ -469,7 +489,7 @@ plotting.curdoc().title = 'Testing'
 
 More info: [Python Bokeh send additional parameters to widget event handler](https://stackoverflow.com/q/41926478/3585557)
 
-*Tags: bokeh, dashboard, class*
+*Tags: #bokeh, #dashboard, #class*
 
 ## Friday 19 June 2020
 
@@ -513,7 +533,7 @@ with f5py.File(fname_h5, 'r') as f_in:
 
 More info: [h5py docs](http://docs.h5py.org/en/stable/quick.html), [Blog Post: How to use HDF5 files in Python](https://www.pythonforthelab.com/blog/how-to-use-hdf5-files-in-python/)
 
-*Tags: hdf5, h5, json, data exploration*
+*Tags: #hdf5, #h5, #json, #data-exploration*
 
 ## Thursday 9 April 2020
 
@@ -549,7 +569,7 @@ pg_ctl  stop
 
 More info: [PostgreSQL without sudo](https://datagrok.org/unix/a_little_postgres/)
 
-*Tags: database, postgresql*
+*Tags: #database, #postgresql*
 
 ## Thursday 2 April 2020
 
@@ -638,7 +658,7 @@ if __name__ == '__main__':
  
 More info: [My question](https://stackoverflow.com/questions/60996940/how-do-i-cleanly-interrupt-and-terminate-a-multiprocessing-pool-of-jobs), [GeeksforGeeks article](https://geeksforgeeks.org/python-different-ways-to-kill-a-thread/)
 
-*Tags: parallel, threading, multiprocessing, API*
+*Tags: #parallel, #threading, #multiprocessing, #API*
 
 ## Tuesday 7 Jan 2020
 
@@ -720,7 +740,7 @@ LaTeX_template
 
 More info: [List directory tree structure in Python](https://stackoverflow.com/a/59109706/3585557), [Count lines of code in directory using Python](https://stackoverflow.com/questions/38543709/count-lines-of-code-in-directory-using-python)
 
-*Tags: LOC, tree, directory, code*
+*Tags: #LOC, #tree, #directory, #code*
 
 ## Friday 3 Jan 2020
 
@@ -778,7 +798,7 @@ z
 
 More info: [Python Programming WikiBook](https://en.wikibooks.org/wiki/Python_Programming/Threading)
 
-*Tags: multithreading*
+*Tags: #multithreading*
 
 ## Friday 3 Jan 2020
 
@@ -814,7 +834,7 @@ class GuiConverter(Converter, QThread):
 
 More info: [SO q1](https://stackoverflow.com/questions/34884567/python-multiple-inheritance-passing-arguments-to-constructors-using-super), [SO q2](https://stackoverflow.com/questions/9575409/calling-parent-class-init-with-multiple-inheritance-whats-the-right-way), [SO q3](https://stackoverflow.com/questions/3277367/how-does-pythons-super-work-with-multiple-inheritance), [Real Python article](https://realpython.com/python-super/#a-super-deep-dive)
 
-*Tags: multiple inheritance, object-oriented*
+*Tags: #multiple-inheritance, #object-oriented*
 
 ## Wednesday 6 Nov 2019
 
@@ -848,7 +868,7 @@ for word in all_words:
 
 More info: [Python Regular Expressions Complete Tutorial](https://www.guru99.com/python-regular-expressions-complete-tutorial.html)
 
-*Tags: regular expression, string*
+*Tags: #regular-expression, #string*
 
 ## Wednesday 6 Nov 2019
 
@@ -888,4 +908,4 @@ for val in vals:
 ```
 I forget where I found this, maybe SO...
 
-*Tags: int, float, string*
+*Tags: #int, #float, #string*
