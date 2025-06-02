@@ -286,10 +286,10 @@ repos:
     rev: 7.2.0
     hooks:
     - id: flake8
--   repo: https://github.com/timothycrosley/isort
+-   repo: https://github.com/pycqa/isort
     rev: 5.11.2
     hooks:
-    -   id: isort
+    -   id: isort (python)
 ```
 
 Add the following configurations to `tox.ini`:
