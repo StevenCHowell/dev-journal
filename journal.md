@@ -279,15 +279,15 @@ In the repo root directory, create (or modify) the file `.pre-commit-config.yaml
 ```yaml
 repos:
 -   repo: https://github.com/psf/black
-    rev: 22.3.0
+    rev: 25.1.0
     hooks:
     - id: black
 -   repo: https://github.com/pycqa/flake8
-    rev: 4.0.1
+    rev: 7.2.0
     hooks:
     - id: flake8
 -   repo: https://github.com/timothycrosley/isort
-    rev: 5.10.1
+    rev: 5.11.2
     hooks:
     -   id: isort
 ```
