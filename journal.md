@@ -287,9 +287,16 @@ repos:
     hooks:
     - id: flake8
 -   repo: https://github.com/pycqa/isort
-    rev: 5.11.2
+    rev: 6.0.1
     hooks:
-    -   id: isort (python)
+    - id: isort
+      name: isort(python)
+    - id: isort
+      name: isort (cython)
+      types: [cython]
+    - id: isort
+      name: isort (pyi)
+      types: [pyi]
 ```
 
 Add the following configurations to `tox.ini`:
