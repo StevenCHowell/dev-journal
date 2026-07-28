@@ -10,6 +10,134 @@ More Info: [link]()
 
 *Tags: ...*
 
+## Tuesday 28 August 2026
+
+I used to use Matplotlib quite a bit and could use a refresher on how to do a handful of things. I prefer the `ax.plot()` paradigm over the `plt.plot()` option, and frankly find it annoying and confusing that resources flip-flop between the two.
+
+Here are a list of items I need to remember how to do:
+* add an annotated colorbar, showing labels at the extremes and incrementing along the gradient
+* removing the white space between two plots that share a common axis, usually the y-axis
+* convert discrete scatter points into a continuous contour map
+
+Suggested Solution:
+
+```python
+"""
+Matplotlib OOP (ax-based) Reference Cheatsheet
+================================================
+Three recurring tasks, done the `fig, ax = plt.subplots()` way throughout
+(no `plt.plot()` / pyplot-state calls). Each function is self-contained —
+copy/paste the block you need into your own script.
+
+Run this file directly to generate all three example figures as PNGs.
+"""
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.interpolate import griddata
+
+
+# ---------------------------------------------------------------------
+# 1. ANNOTATED COLORBAR — ticks along the gradient + labeled extremes
+# ---------------------------------------------------------------------
+def demo_colorbar():
+    fig, ax = plt.subplots(figsize=(6, 5))
+
+    x = np.linspace(0, 10, 200)
+    y = np.linspace(0, 10, 200)
+    X, Y = np.meshgrid(x, y)
+    Z = np.sin(X) * np.cos(Y)
+
+    # Any plotting call that returns a "mappable" (pcolormesh, imshow,
+    # contourf, scatter) can be handed straight to fig.colorbar().
+    mesh = ax.pcolormesh(X, Y, Z, cmap="viridis", shading="auto")
+
+    # Attach the colorbar to this specific ax — keeps layout well-behaved
+    # even with multiple subplots (compare to the old `plt.colorbar()`).
+    cbar = fig.colorbar(mesh, ax=ax, orientation="vertical", pad=0.02)
+    cbar.set_label("Signal intensity", rotation=270, labelpad=15)
+
+    # Explicit ticks incrementing along the gradient (min -> max)
+    ticks = np.linspace(Z.min(), Z.max(), 5)
+    cbar.set_ticks(ticks)
+    cbar.set_ticklabels([f"{t:.2f}" for t in ticks])
+
+    # Label the extremes distinctly, positioned relative to the colorbar's
+    # own axes (0,0)=bottom-left, (1,1)=top-right of the bar itself.
+    cbar.ax.text(0.5, -0.02, "Low", transform=cbar.ax.transAxes,
+                 ha="center", va="top")
+    cbar.ax.text(0.5, 1.02, "High", transform=cbar.ax.transAxes,
+                 ha="center", va="bottom")
+
+    ax.set_title("pcolormesh + annotated colorbar")
+    return fig
+
+
+# ---------------------------------------------------------------------
+# 2. ZERO WHITESPACE BETWEEN SUBPLOTS THAT SHARE AN AXIS
+# ---------------------------------------------------------------------
+def demo_shared_axis_no_gap():
+    # Stacked vertically, sharing the x-axis -> kill the *vertical* gap
+    # between them with gridspec_kw={"hspace": 0}.
+    fig, axes = plt.subplots(
+        nrows=2, ncols=1, sharex=True, figsize=(6, 6),
+        gridspec_kw={"hspace": 0},
+    )
+
+    x = np.linspace(0, 10, 200)
+    axes[0].plot(x, np.sin(x), color="tab:blue")
+    axes[1].plot(x, np.cos(x), color="tab:orange")
+
+    axes[0].set_ylabel("sin(x)")
+    axes[1].set_ylabel("cos(x)")
+    axes[1].set_xlabel("x")
+
+    # Optional: hide the top plot's x tick labels since they'd otherwise
+    # collide with the bottom plot's top edge now that there's no gap.
+    axes[0].tick_params(labelbottom=False)
+
+    fig.suptitle("hspace=0 for vertically stacked, shared x-axis")
+
+    # NOTE: for side-by-side subplots sharing a y-axis, use `sharey=True`
+    # and gridspec_kw={"wspace": 0} instead — same idea, other direction.
+    return fig
+
+
+# ---------------------------------------------------------------------
+# 3. DISCRETE SCATTER POINTS -> CONTINUOUS CONTOUR MAP
+# ---------------------------------------------------------------------
+def demo_scatter_to_contour():
+    rng = np.random.default_rng(42)
+    x = rng.uniform(0, 10, 200)
+    y = rng.uniform(0, 10, 200)
+    z = np.sin(x) * np.cos(y) + rng.normal(0, 0.05, 200)
+
+    # Interpolate scattered (x, y, z) onto a regular grid first —
+    # contourf needs gridded data, it can't work on scatter points directly.
+    xi = np.linspace(x.min(), x.max(), 200)
+    yi = np.linspace(y.min(), y.max(), 200)
+    Xi, Yi = np.meshgrid(xi, yi)
+    Zi = griddata((x, y), z, (Xi, Yi), method="cubic")  # or "linear"/"nearest"
+
+    fig, ax = plt.subplots(figsize=(6, 5))
+    contour = ax.contourf(Xi, Yi, Zi, levels=20, cmap="viridis")
+    ax.scatter(x, y, c="k", s=5, alpha=0.3)  # overlay original points (optional)
+    fig.colorbar(contour, ax=ax, label="interpolated z")
+    ax.set_title("Scatter -> continuous contour (griddata + contourf)")
+    return fig
+
+
+if __name__ == "__main__":
+    demo_colorbar().savefig("colorbar_demo.png", dpi=150, bbox_inches="tight")
+    demo_shared_axis_no_gap().savefig("shared_axis_demo.png", dpi=150, bbox_inches="tight")
+    demo_scatter_to_contour().savefig("contour_demo.png", dpi=150, bbox_inches="tight")
+    print("Saved: colorbar_demo.png, shared_axis_demo.png, contour_demo.png")
+```
+
+More Info: Claude chat
+
+*Tags: #Matplotlib, #plotting, #colorbar, #shared_axis, #data_viz*
+
 ## Wednesday 19 April 2023
 
 How do I create optional arguments using Python's built-in `argparse` library?
@@ -28,7 +156,7 @@ parser.add_argument(
 
 More Info: [Meduim post with lots of examples](https://medium.com/swlh/python-argparse-by-example-a530eb55ced9)
 
-*Tags: #argparse, #optional, #argument
+*Tags: #argparse, #optional, #argument*
 
 ## Monday 27 February 2023
 
