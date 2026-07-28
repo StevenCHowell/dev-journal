@@ -153,49 +153,65 @@ def demo_equal_aspect():
 # ---------------------------------------------------------------------
 # 5. CATEGORICAL SCATTER WITH A CLEAN LEGEND
 # ---------------------------------------------------------------------
-def demo_categorical_scatter_legend():
+def demo_categorical_scatter_legend_noloop():
     rng = np.random.default_rng(0)
     n = 150
-    categories = rng.choice(["Control", "Treatment A", "Treatment B"], size=n)
+    labels = rng.choice(["Control", "Treatment A", "Treatment B"], size=n)
     x = rng.normal(0, 1, n)
     y = rng.normal(0, 1, n)
 
+    # Turn text labels into integer codes in one shot. `categories`
+    # preserves the order each label first appears in `labels`.
+    codes, categories = pd.factorize(labels)
+
     fig, ax = plt.subplots(figsize=(6.5, 5))
+    scatter = ax.scatter(
+        x, y, c=codes, cmap="tab10", s=45, alpha=0.8,
+        edgecolor="white", linewidth=0.5,
+    )
 
-    # One scatter call per category so each gets its own legend entry
-    # with a proper marker (a single scatter call with c=array gives you
-    # a colorbar, not a clean categorical legend).
-    palette = {"Control": "tab:gray", "Treatment A": "tab:blue", "Treatment B": "tab:red"}
-    markers = {"Control": "o", "Treatment A": "s", "Treatment B": "^"}
-
-    for cat in palette:
-        mask = categories == cat
-        ax.scatter(
-            x[mask], y[mask],
-            label=cat,
-            color=palette[cat],
-            marker=markers[cat],
-            s=45,
-            alpha=0.75,
-            edgecolor="white",
-            linewidth=0.5,
-        )
+    # legend_elements() hands back one proxy handle per unique code
+    # value in the SAME order as `categories` -> just pair them up.
+    handles, _ = scatter.legend_elements()
+    ax.legend(handles, categories, title="Group", loc="upper left",
+              bbox_to_anchor=(1.02, 1), framealpha=0.9, edgecolor="0.8")
 
     ax.set_xlabel("Feature 1")
     ax.set_ylabel("Feature 2")
-    ax.set_title("Categorical scatter")
+    ax.set_title("Categorical scatter — single call, color-only")
 
-    legend = ax.legend(
-        title="Group",
-        loc="upper left",
-        bbox_to_anchor=(1.02, 1),  # push legend outside the axes
-        frameon=True,
-        framealpha=0.9,
-        edgecolor="0.8",
-    )
-    legend.get_title().set_fontweight("bold")
+    # Trade-off vs. the looped version: this only encodes category by
+    # COLOR (one scatter call = one marker shape for everyone). If you
+    # also want distinct marker shapes per category, you're back to
+    # looping — matplotlib's scatter can't vary marker style within a
+    # single call.
+    fig.tight_layout()
+    return fig
 
-    fig.tight_layout()  # re-flow so the outside legend doesn't get clipped
+
+# ---------------------------------------------------------------------
+# 7. EQUAL ASPECT RATIO ON AXES THAT SHARE AN AXIS
+# ---------------------------------------------------------------------
+def demo_shared_axis_equal_aspect():
+    fig, axes = plt.subplots(1, 2, sharey=True, figsize=(9, 5))
+
+    axes[0].plot([0, 1], [0, 10])
+    axes[1].plot([0, 1], [0, 10])
+
+    # adjustable="box" (the default) satisfies equal aspect by resizing
+    # the *physical* subplot box. But sharey locks the y-limits
+    # together across both axes, so matplotlib can't stretch y to fit —
+    # it shrinks the box's width instead, throwing the two panels out
+    # of visual alignment even though nothing looks "wrong" in isolation.
+    #
+    # adjustable="datalim" instead keeps the box's physical size/position
+    # fixed and rescales the view limits of the *non-shared* axis (x,
+    # here) to hit the target ratio, leaving the shared axis (y) alone.
+    # This is almost always what you want for shared-axis panels.
+    axes[1].set_aspect("equal", adjustable="datalim")
+
+    axes[0].set_title("reference panel")
+    axes[1].set_title('adjustable="datalim"')
     return fig
 
 
