@@ -127,11 +127,85 @@ def demo_scatter_to_contour():
     return fig
 
 
+# ---------------------------------------------------------------------
+# 4. SQUARE / EQUAL-SCALE AXES (x and y units the same physical size)
+# ---------------------------------------------------------------------
+def demo_equal_aspect():
+    fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+
+    theta = np.linspace(0, 2 * np.pi, 200)
+    for ax in axes:
+        ax.plot(np.cos(theta), np.sin(theta))
+
+    # Default: matplotlib stretches the axes box to fill the figure,
+    # so a circle looks like an ellipse unless you fix the aspect ratio.
+    axes[0].set_title("default (distorted)")
+
+    # "equal" -> one data unit in x == one data unit in y (true circle).
+    # "box" adjusts the axes' box shape to enforce this (as opposed to
+    # "datalim", which would instead stretch/shrink the data limits).
+    axes[1].set_aspect("equal", adjustable="box")
+    axes[1].set_title('set_aspect("equal")')
+
+    return fig
+
+
+# ---------------------------------------------------------------------
+# 5. CATEGORICAL SCATTER WITH A CLEAN LEGEND
+# ---------------------------------------------------------------------
+def demo_categorical_scatter_legend():
+    rng = np.random.default_rng(0)
+    n = 150
+    categories = rng.choice(["Control", "Treatment A", "Treatment B"], size=n)
+    x = rng.normal(0, 1, n)
+    y = rng.normal(0, 1, n)
+
+    fig, ax = plt.subplots(figsize=(6.5, 5))
+
+    # One scatter call per category so each gets its own legend entry
+    # with a proper marker (a single scatter call with c=array gives you
+    # a colorbar, not a clean categorical legend).
+    palette = {"Control": "tab:gray", "Treatment A": "tab:blue", "Treatment B": "tab:red"}
+    markers = {"Control": "o", "Treatment A": "s", "Treatment B": "^"}
+
+    for cat in palette:
+        mask = categories == cat
+        ax.scatter(
+            x[mask], y[mask],
+            label=cat,
+            color=palette[cat],
+            marker=markers[cat],
+            s=45,
+            alpha=0.75,
+            edgecolor="white",
+            linewidth=0.5,
+        )
+
+    ax.set_xlabel("Feature 1")
+    ax.set_ylabel("Feature 2")
+    ax.set_title("Categorical scatter")
+
+    legend = ax.legend(
+        title="Group",
+        loc="upper left",
+        bbox_to_anchor=(1.02, 1),  # push legend outside the axes
+        frameon=True,
+        framealpha=0.9,
+        edgecolor="0.8",
+    )
+    legend.get_title().set_fontweight("bold")
+
+    fig.tight_layout()  # re-flow so the outside legend doesn't get clipped
+    return fig
+
+
 if __name__ == "__main__":
     demo_colorbar().savefig("colorbar_demo.png", dpi=150, bbox_inches="tight")
     demo_shared_axis_no_gap().savefig("shared_axis_demo.png", dpi=150, bbox_inches="tight")
     demo_scatter_to_contour().savefig("contour_demo.png", dpi=150, bbox_inches="tight")
-    print("Saved: colorbar_demo.png, shared_axis_demo.png, contour_demo.png")
+    demo_equal_aspect().savefig("equal_aspect_demo.png", dpi=150, bbox_inches="tight")
+    demo_categorical_scatter_legend().savefig("categorical_legend_demo.png", dpi=150, bbox_inches="tight")
+    print("Saved all demo PNGs.")
 ```
 
 More Info: Claude chat
