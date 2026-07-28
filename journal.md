@@ -10,7 +10,7 @@ More Info: [link]()
 
 *Tags: ...*
 
-## Tuesday 28 August 2026
+## Tuesday 28 July 2026
 
 I used to use Matplotlib quite a bit and could use a refresher on how to do a handful of things. I prefer the `ax.plot()` paradigm over the `plt.plot()` option, and frankly find it annoying and confusing that resources flip-flop between the two.
 
